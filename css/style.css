@@ -1,0 +1,114 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: Verdana;
+	overflow: hidden;
+	font-weight: bold;
+}
+
+#content {
+	width: 100%;
+	height: 75vh;
+	background-color: bisque;
+}
+
+#svg {
+	width: 100%;
+	height: 100%;
+}
+
+#interface {
+	width: 100%;
+	height: 25vh;
+	background-color: gray;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+/* controlButtons */
+#controlButtons {
+	display: grid;
+	grid-template-rows: 70px 70px 70px;
+	grid-template-columns: 70px 70px 70px;
+	width: 225px;
+	height: 225px;
+}
+
+button {
+	width: 80px;
+	height: 80px;
+	background-color: bisque;
+	border: black 1px solid;
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #ddc2c2;
+	transition: 0.2s;
+}
+
+#up {
+	transform: rotate(-90deg);
+	grid-row-start: 1;
+	grid-row-end: 1;
+	grid-column-start: 2;
+	grid-column-end: 2;
+}
+
+#right {
+	transform: rotate(0deg);
+	grid-row-start: 2;
+	grid-row-end: 2;
+	grid-column-start: 3;
+	grid-column-end: 3;
+}
+
+#left {
+	transform: rotate(-180deg);
+	grid-row-start: 2;
+	grid-row-end: 2;
+	grid-column-start: 1;
+	grid-column-end: 1;
+}
+
+#down {
+	transform: rotate(90deg);
+	grid-row-start: 3;
+	grid-row-end: 3;
+	grid-column-start: 2;
+	grid-column-end: 2;
+}
+
+/* randomColorButton */
+#randomColor {
+	position: absolute;
+	margin-right: 1500px;
+	width: 120px;
+	height: 120px;
+}
+
+#randomColor:hover {
+	background-color: lightblue;
+	transition: 0.2s;
+}
+
+/* clearContentButton */
+#clearContent {
+	position: absolute;
+	margin-left: 1500px;
+	width: 120px;
+	height: 120px;
+}
+
+#clearContent:hover {
+	background-color: lightcoral;
+	transition: 0.2s;
+}
