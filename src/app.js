@@ -3,8 +3,8 @@ let roughSvg = rough.svg(document.getElementById("svg"));
 const svg = document.getElementById("svg");
 let color = "#FFC0CB";
 
-let globalX = 910; //1030
-let globalY = 300; //10
+let globalX = 910; //910
+let globalY = 300; //300
 
 //**======================================================================**
 
