@@ -1,38 +1,20 @@
-//configuration
+// Konfiguracja
 let roughSvg = rough.svg(document.getElementById("svg"));
 const svg = document.getElementById("svg");
 let color = "#FFC0CB";
 
-let globalX = 910; //910
-let globalY = 300; //300
+let globalX = 910;
+let globalY = 300;
 
-//**======================================================================**
+console.log("Wszystkie prostokąty:");
+var rectanglePositions = [];
 
-//adding start rectangle
-drawRectangle(globalX, globalY);
-
-//function for drawing rectangles
-function drawRectangle(x, y) {
-	const rectangle = roughSvg.rectangle(x, y, 100, 100, {
-		roughness: 0,
-		fill: color,
-		fillStyle: "solid",
-	});
-	rectangle.addEventListener("click", () => {
-		console.log("click");
-	});
-	svg.appendChild(rectangle);
-}
-
-//===================================
-
-//adding your own rectangles
-//buttons configuration
+// Konfiguracja przycisków
 const upButton = document.getElementById("up");
 upButton.addEventListener("click", drawUp);
 
-const rightButtom = document.getElementById("right");
-rightButtom.addEventListener("click", drawRight);
+const rightButton = document.getElementById("right");
+rightButton.addEventListener("click", drawRight);
 
 const leftButton = document.getElementById("left");
 leftButton.addEventListener("click", drawLeft);
@@ -46,9 +28,38 @@ clearContentButton.addEventListener("click", clearContent);
 const randomColorButton = document.getElementById("randomColor");
 randomColorButton.addEventListener("click", randomColor);
 
-//drawing functions
+// Funkcje główne
+async function drawRectangle(x, y) {
+	// Rysowanie prostokąta
+	const rectangle = roughSvg.rectangle(x, y, 100, 100, {
+		roughness: 0,
+		fill: color,
+		fillStyle: "solid",
+	});
+	rectangle.addEventListener("click", () => {
+		console.log("click");
+	});
+	svg.appendChild(rectangle);
+
+	// Dodawanie informacji o prostokącie do tablicy
+	const rectangleData = {
+		x: x,
+		y: y,
+		width: 100,
+		height: 100,
+	};
+	rectanglePositions.push(rectangleData);
+	console.log(rectanglePositions);
+
+	// Sprawdzanie prostokątów
+	await checkRectangles();
+}
+
+// Rysowanie pierwszego prostokąta przy starcie
+drawRectangle(globalX, globalY);
+
+// Funkcje rysowania w różnych kierunkach
 async function drawUp() {
-	//upLine
 	const upLine = roughSvg.line(
 		globalX + 100 / 2,
 		globalY,
@@ -64,7 +75,6 @@ async function drawUp() {
 }
 
 async function drawRight() {
-	//rightLine
 	const rightLine = roughSvg.line(
 		globalX + 100,
 		globalY + 100 / 2,
@@ -80,7 +90,6 @@ async function drawRight() {
 }
 
 async function drawLeft() {
-	//leftLine
 	const leftLine = roughSvg.line(
 		globalX,
 		globalY + 100 / 2,
@@ -96,7 +105,6 @@ async function drawLeft() {
 }
 
 async function drawDown() {
-	//downLine
 	const downLine = roughSvg.line(
 		globalX + 100 / 2,
 		globalY + 100,
@@ -111,20 +119,31 @@ async function drawDown() {
 	await drawRectangle(globalX, globalY);
 }
 
-//===================================
-//other functions
+// Inne funkcje
+async function checkRectangles() {
+	// Sprawdzanie prostokątów
+	console.log("Wszystkie prostokąty:");
+	if (rectanglePositions.length > 1) {
+		rectanglePositions.forEach((position, index) => {
+			console.log(`Prostokąt ${index + 1}: x=${position.x}, y=${position.y}`);
+		});
+	} else {
+		console.log("Brak innych prostokątów na planszy.");
+	}
+}
 
-//clearContent
 async function clearContent() {
+	// Czyszczenie zawartości
+	alert("Wyczyszczono planszę");
 	document.getElementById("svg").innerHTML = "";
 	globalX = 910;
 	globalY = 300;
+	rectanglePositions = [];
 	await drawRectangle(globalX, globalY);
-	console.log("WYCZYSZCZONO PLANSZĘ");
 }
 
-//randomColor
 async function randomColor() {
+	// Losowanie koloru
 	const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
 	const rectangles = document.querySelectorAll("g");
 	rectangles.forEach((rectangle) => {
